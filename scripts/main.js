@@ -114,6 +114,7 @@ var showD3 = function(updating) {
 		// remove all current
 		d3.select('svg').select('g.towns').selectAll('circle').remove();
 		d3.select('svg').select('g.towns').remove();
+		d3.select('svg').selectAll('g.legend-entry').remove();
 	}
 
 	// make a sqrt scale for our circles as this will represent the area better for 
@@ -121,17 +122,18 @@ var showD3 = function(updating) {
 	var rScale = d3.scale.sqrt()
 	                     .domain([0, d3.max(dataset, function(d) { return d.Population; })])
 	                     .rangeRound([2, 16]);
+
 	// colorbrewer2.org palette in green.
 	// circle color will belong to one bin
 	var colorScale = d3.scale.quantize()
-	.domain([	d3.min(dataset, function(d) { 
-					return Math.floor(d.Population / 1000) * 1000; }), 
+	.domain([	0, 
 				d3.max(dataset, function(d) { 
 					return Math.ceil(d.Population / 1000) * 1000; })	])
+	
 	.range(['#edf8e9','#c7e9c0','#a1d99b','#74c476','#31a354','#006d2c']); 
 	
 	// 
-	// we set a scale for radious by population and also
+	// we set a scale for radius by population and also
 	// color scale - slotting the circle into a bucket/bin range
 	// 
 	currentTowns = svg.append('g').attr("class","towns")
