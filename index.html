@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>D3 UK Circles Assignment, Data Programming Languages, L. Barker.</title>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Inconsolata|Droid+Sans">
+    <link href="styles/main.css" media="all" rel="stylesheet" type="text/css" />
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+	<script>if (!window.d3) { console.log('loading local d3 as CDN failed');document.write('<script src="vendor/d3.min.js"><\/script>'); } else {console.log('d3 from CDN');}
+	</script>
+	<script src="vendor/topojson.v1.min.js"></script>
+
+
+
+</head>
+<body>		
+
+	<form id="params" type="get" action="">
+		<div>
+			<legend>UK Towns Plot in D3.js</legend>
+			<label for="slide"> No. of towns to visualise &raquo; </label>
+			<input title="max: 150" id="slide" type="range" value="20" min="5" max="150" step="5" />
+			<label id="amount" title="max: 150" ></label> <label title="max: 150">towns</label>
+		</div>
+		
+		<label id="label_county_toggle" for="county_toggle"> Show county centroid layer (proof of concept only)</label>
+		<input id="county_toggle" type="checkbox" onclick="handleClick(this);"  />
+		<span class="tip">Tip: click a bar-chart text-label item to locate on map!</span>
+		<a href="http://www.d3js.org">www.d3js.org</a>
+	</form>	
+	<!-- load js at end -->
+	<script src="scripts/main.js"></script>
+
+	<!-- begin: extra scripts just to demo: pull out some wikipedia info -->
+	<script src="vendor/jquery-1.11.3.min.js"></script>
+	<script src="vendor/wikiup/wikiUp.js"></script>
+	<link href="vendor/wikiup/wikiUp.css" media="all" rel="stylesheet" type="text/css" />
+	<!-- end: wikipedia info -->
+
+
+
+
+</body>
+
+</html>
