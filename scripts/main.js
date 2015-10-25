@@ -1,6 +1,6 @@
 
 /*
-
+	JL Barker 
 	1: wrote a D3 program that consumes the feed
 	2: draws a map of the UK
 	3: Plots the towns form the feed on the map
@@ -12,11 +12,14 @@ var debugMode = (window.location.hash !== "#debug") ? false : true;
 var amount = debugMode ? 20 : document.getElementById('slide').value;
 
 var feedUrl = function (amount) {
-	//debug:
+
+	//debug with local script if remote not working:
 	//return 'scripts/20.json';
-	//
+	
+	// Feed url:
 	return 'http://ac51041-1.cloudapp.net:8080/Circles/Towns/' + parseInt(amount);
-	//return 'http://ac32007.cloudapp.net:8080/Circles/Towns/' + parseInt(amount);
+	// alt feed URL:
+	// return 'http://ac32007.cloudapp.net:8080/Circles/Towns/' + parseInt(amount);
 }
 var url = feedUrl(amount); 
 
@@ -36,7 +39,9 @@ d3.json(url, function(error, json) {
   // set this JSON data to the global we made earlier:
   dataset = json;
   showD3(); // display our plot now the JSON has had a chance to load:
-  console.log('dataset loaded now, should be plotted.')
+  //console.log('dataset loaded now, should be plotted.')
+  // 
+  // unpause the slider again to allow input:
   document.getElementById('slide').disabled = false;
 });
 
@@ -190,13 +195,14 @@ var showD3 = function(updating) {
 		return b.Population - a.Population; }), 
 		function(d) { return d.Population; };
 
-	var barH = 8; // line height
+	var barH = 8; // set line height
 	var verticalOffset = 20;
 	
 	var xScale = d3.scale.linear()
 			.domain([0, d3.max(dataset, function(d){ return d.Population; })])
 			.range([0, 399]);
 
+	// Draw the bars in the bar chart:
 	var bars = svg.select('g.towns').selectAll("rect")
 		.data(datasetSorted)
 		.enter()
@@ -241,7 +247,6 @@ var showD3 = function(updating) {
 			.remove();
 
 			// highlight the town with a big circle and label it:
-			//console.log(document.getElementById(this.id));
 			this.setAttribute("class", "label selected");
 			var showing = d3.select('circle#'+search)
 			.style('fill','#ff0000')
@@ -281,10 +286,9 @@ var showD3 = function(updating) {
 	
 }; // end showD3()
 
-
+// FIXME: County Layer 
 // county centroids: list of CSV format Lat/Long centroids by UK county
 // credit: http://www.nearby.org.uk/counties/ 
-// FIXME: County Layer 
 // N Ire is wrong, so Londonderry, Derry, Antrim, Armagh, Fermanagh, Down, Tyrone
 // must be mapped to that
 // also some others wrong :( if no towns for that county  just hide.
@@ -321,7 +325,7 @@ d3.csv('uk-county-centroids-no-eire.csv', function(csvData){
 
 		});
 
-	// label these:
+	// label counties:
 	svg.select('g.counties')	
 		.selectAll('text')
 		.data(csvData)
@@ -344,8 +348,7 @@ d3.csv('uk-county-centroids-no-eire.csv', function(csvData){
 			return projection([d.wgs84_long, d.wgs84_lat])[1];
 
 		})
-		.attr("dominant-baseline", "central")
-		.attr("alignment-baseline", "central")
+		
 		
 		.attr('transform', 'translate(45 -30) rotate(5)')
 		.attr('class', 'county-label');
@@ -370,6 +373,7 @@ slide.onchange = function() {
     sliderDiv.innerHTML = this.value;
     url = feedUrl(this.value);
 
+    // pause this until the new data has loaded:
     this.disabled = true;
 
     // asynchronously load in the JSON from the remote feed:
@@ -380,7 +384,8 @@ slide.onchange = function() {
       // set this JSON data to the global we made earlier:
       dataset = json;
       showD3(true); // display our plot now the JSON has had a chance to load:
-      console.log('dataset loaded now, should be plotted.')
+      // console.log('dataset loaded now, should be plotted.')
+      // unpause:
       document.getElementById('slide').disabled = false;
     });
  
