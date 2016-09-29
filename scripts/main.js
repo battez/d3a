@@ -17,9 +17,9 @@ var feedUrl = function (amount) {
 	//return 'scripts/20.json';
 	
 	// Feed url:
-	return 'http://ac51041-1.cloudapp.net:8080/Circles/Towns/' + parseInt(amount);
+	//return 'http://ac51041-1.cloudapp.net:8080/Circles/Towns/' + parseInt(amount);
 	// alt feed URL:
-	// return 'http://ac32007.cloudapp.net:8080/Circles/Towns/' + parseInt(amount);
+	return 'http://ac32007.cloudapp.net:8080/Circles/Towns/' + parseInt(amount);
 }
 var url = feedUrl(amount); 
 
