@@ -21,8 +21,8 @@ var feedUrl = function (amount) {
 	// alt feed URL:
 	return 'http://ac32007.cloudapp.net:8080/Circles/Towns/' + parseInt(amount);
 }
-var url = feedUrl(amount); 
-
+// var url = feedUrl(amount); 
+var url = 'https://raw.githubusercontent.com/battez/d3a/master/scripts/20.json'
 
 
 /*
